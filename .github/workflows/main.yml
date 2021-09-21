@@ -1,0 +1,21 @@
+# Sample workflow to access AWS resources when workflow is tied to branch
+# The workflow Creates static website using aws s3
+name: AWS branch Sampleworkflow
+on:
+  workflow_dispatch:
+  
+env:
+  BUCKET_NAME : "github-oidc-test"
+  AWS_REGION : "us-east-2"
+   
+# permission can be added at job level or workflow level    
+permissions:
+      id-token: write
+      contents: write    # This is required for actions/checkout@v1
+
+jobs:
+  S3PackageUpload:
+    uses: patterson-io/reusable-workflow/.github/workflows/s3-upload.yml@main
+    with:
+      aws_region: us-east-2
+      s3_bucket: oidc-test
